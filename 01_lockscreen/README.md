@@ -5,3 +5,5 @@
 * Working with different audio samples using JavaScript and making them play when a user presses different keys.
 * Checking for a sequence of keypresses and evaluating if it's correct or not (using Event Listeners).
 * Recreating the cool ghost image animation that happens when the screen unlocks.
+
+![GIF example of the lock screen](./01_lockscreen_example.gif)
