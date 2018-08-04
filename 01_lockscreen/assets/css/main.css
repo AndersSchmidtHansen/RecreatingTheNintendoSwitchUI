@@ -83,20 +83,41 @@ body {
   text-align: center;
 }
 
-.c-current-app__icon {
+.c-current-app__icon-container {
   --icon-size: 200px;
   width: var(--icon-size);
-  height: var(--icon-size);
-  background-color: #2b2b2b;
-  transition: 
-    transform 150ms cubic-bezier(0.6, -0.28, 0.735, 0.045),
-    box-shadow 150ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
-
+  height: var(--icon-size);  
 }
 
-.c-current-app__icon--unlocked {
-  transform: translateY(-8px) rotate(-2deg) scale(1.1);
-  box-shadow: 0 5px 20px 0 hsla(0, 0%, 0%, .25);
+.c-current-app__icon,
+.c-current-app__icon-clone {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  background-color: #2b2b2b;
+}
+
+.c-current-app__icon-clone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 1;
+}
+
+.c-current-app__icon-clone:hover,
+.c-current-app__icon-clone--unlocked {
+  animation: expandAndFade 250ms cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+}
+
+@keyframes expandAndFade {
+  from {
+    transform: translateY(0px) scale(1);
+    opacity: 1;    
+  }
+  to {
+    transform: translateY(-8px) scale(1.5);
+    opacity: 0;    
+  }  
 }
 
 .c-current-app__title {

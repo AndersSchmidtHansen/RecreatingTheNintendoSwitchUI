@@ -1,4 +1,4 @@
-/* Nintendo Switch Lock Screen */
+/* 01: Creating the Nintendo Switch Lock Screen */
 // State
 let pressedKeys = [];
 const keysNeedingPressing = 3;
@@ -62,8 +62,8 @@ function lockScreen() {
     toggleAppIconLockState();
 }
 function toggleAppIconLockState() {
-    const CurrentAppIcon = document.body.querySelector('#CurrentAppIcon');
-    CurrentAppIcon.classList.toggle('c-current-app__icon--unlocked');
+    const CurrentAppIconClone = document.body.querySelector('#CurrentAppIconClone');
+    CurrentAppIconClone.classList.toggle('c-current-app__icon-clone--unlocked');
 }
 function toggleAllDots(on = false) {
     Array.from(KeypressDotsElm).map(dot => {
