@@ -15,10 +15,6 @@ function resetArray(array: Array<any>) {
   array.length = 0
 }
 
-function emit(eventName:string, target:any = document) {
-  return target.dispatchEvent(new Event(eventName))
-}
-
 // State
 let pressedKeys:Array<any> = []
 const keysNeedingPressing:number = 3
@@ -103,9 +99,8 @@ function checkKeypressSequence(event: KeyboardEvent, limit: number = 3) {
     return resetArray(pressedKeys)
   }
 
-  if (keyLimitReached) emit('unlockSuccess')
+  if (keyLimitReached) unlockScreen()
 }
 
 // Events
 document.addEventListener('keydown', event => checkKeypressSequence(event, keysNeedingPressing))
-document.addEventListener('unlockSuccess', unlockScreen)

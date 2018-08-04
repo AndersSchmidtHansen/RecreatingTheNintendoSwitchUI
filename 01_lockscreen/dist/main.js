@@ -13,9 +13,6 @@ function playSound(audioElm, src = null) {
 function resetArray(array) {
     array.length = 0;
 }
-function emit(eventName, target = document) {
-    return target.dispatchEvent(new Event(eventName));
-}
 // State
 let pressedKeys = [];
 const keysNeedingPressing = 3;
@@ -85,9 +82,8 @@ function checkKeypressSequence(event, limit = 3) {
         return resetArray(pressedKeys);
     }
     if (keyLimitReached)
-        emit('unlockSuccess');
+        unlockScreen();
 }
 // Events
 document.addEventListener('keydown', event => checkKeypressSequence(event, keysNeedingPressing));
-document.addEventListener('unlockSuccess', unlockScreen);
 //# sourceMappingURL=main.js.map
