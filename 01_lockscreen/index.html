@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Nintendo Switch - Lock Screen</title>
+  <link rel="stylesheet" href="./assets/css/main.css">
+</head>
+<body>
+  <main class="c-app">
+    <header id="AppHeader" class="c-app__header">
+      <div class="c-app-nav">
+        <div class="c-app-nav__item">Back</div>
+        <div class="c-app-nav__item align-right">
+          <label>Disable next time</label>
+        </div>
+      </div>
+    </header>
+    <section id="AppContent" class="c-app__content">
+      <div class="c-current-app">
+        <img src="https://api.adorable.io/avatars/face" id="CurrentAppIcon" class="c-current-app__icon"></div>
+        <div class="c-current-app__title">Awesome Games</div>
+      </div>
+    </section>
+    <footer id="AppFooter" class="c-app__footer">
+      <h2 class="c-keypress-sequence__instructions">Press the same button three times.</h2>
+      <div id="KeypressSequenceContainer"></div>
+    </footer>
+  </main>
+
+  <script src="./dist/main.js"></script>
+</body>
+</html>

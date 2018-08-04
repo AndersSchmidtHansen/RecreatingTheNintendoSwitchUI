@@ -1,0 +1,21 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+      "target": "es6",
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "sourceMap": true,
+      "charset": "utf-8",
+      "noImplicitReturns": true,
+      "rootDir": "./src",
+      "outDir": "./dist",
+      "lib": [
+        "es2016",
+        "dom",
+        "es5"
+    ]      
+  },
+  "exclude": [
+    "node_modules"
+  ]  
+}
