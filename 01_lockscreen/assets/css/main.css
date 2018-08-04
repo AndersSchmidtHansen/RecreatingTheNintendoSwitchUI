@@ -69,7 +69,6 @@ body {
 
 .c-keypress-sequence__dot--active {
   background-color: var(--dot-color);
-  box-shadow: 0 0 0px 2px hsla(0, 0%, 0%, .15);
 }
 
 .c-keypress-sequence__instructions {
