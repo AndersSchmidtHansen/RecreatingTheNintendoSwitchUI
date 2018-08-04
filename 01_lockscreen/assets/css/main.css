@@ -1,3 +1,5 @@
+/* 01: Creating the Nintendo Switch Lock Screen */
+
 .c-app {
   display: grid;
   align-content: space-between;
@@ -57,7 +59,6 @@
 }
 /* END Component: Keypress Dots */
 
-
 /* START Component: Current App */
 .c-current-app {
   text-align: center;
@@ -84,16 +85,13 @@
   opacity: 1;
 }
 
-.c-current-app__icon-clone:hover,
 .c-current-app__icon-clone--unlocked {
+  transform: translateY(0px) scale(1);
+  opacity: 1;     
   animation: expandAndFade 250ms cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
 }
 
 @keyframes expandAndFade {
-  from {
-    transform: translateY(0px) scale(1);
-    opacity: 1;    
-  }
   to {
     transform: translateY(-8px) scale(1.5);
     opacity: 0;    
