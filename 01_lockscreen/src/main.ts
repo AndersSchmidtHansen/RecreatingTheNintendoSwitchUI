@@ -1,5 +1,24 @@
 /* 01: Creating the Nintendo Switch Lock Screen */
 
+// Utility Methods
+function generateMultipleHTML (html:string = '', amount:number = 0) {
+  return Array.from({ length: amount }).fill(html).join('')
+}
+
+function playSound (audioElm:HTMLAudioElement, src:string = null) {
+  audioElm.currentTime = 0
+  if (src) { audioElm.src = src }
+  audioElm.play()
+}
+
+function resetArray(array: Array<any>) {
+  array.length = 0
+}
+
+function emit(eventName:string, target:any = document) {
+  return target.dispatchEvent(new Event(eventName))
+}
+
 // State
 let pressedKeys:Array<any> = []
 const keysNeedingPressing:number = 3
@@ -40,29 +59,6 @@ function generateKeypressSequenceElm (target:any = document.body, amount:number 
 }
 
 // Methods
-function checkKeypressSequence(event: KeyboardEvent, limit: number = 3) {
-  pressedKeys.push(event.code)
-
-  const keyLimitReached:boolean = pressedKeys.length >= limit
-  const someKeysAreDifferent:boolean = pressedKeys.length && pressedKeys.some(key => key !== event.code)
-  const keypressSequenceDots = KeypressSequenceElm.querySelectorAll('.c-keypress-sequence__dot')
-
-  if (!keyLimitReached) {
-    pressedKeys.map((key, index) => {
-      keypressSequenceDots[index].classList.add('c-keypress-sequence__dot--active')
-    })
-  }
-  
-  playSound(someKeysAreDifferent ? FailedAudioController : DefaultAudioController)
-
-  if (someKeysAreDifferent) {
-    toggleAllDots(false)
-    return resetArray(pressedKeys)
-  }
-
-  if (keyLimitReached) emit('unlockSuccess')
-}
-
 function unlockScreen() {
   playSound(UnlockedAudioController)
   toggleAllDots(true)
@@ -87,23 +83,27 @@ function toggleAllDots(on:boolean = false) {
   })  
 }
 
-// Utility Methods
-function generateMultipleHTML (html:string = '', amount:number = 0) {
-  return Array.from({ length: amount }).fill(html).join('')
-}
+function checkKeypressSequence(event: KeyboardEvent, limit: number = 3) {
+  pressedKeys.push(event.code)
 
-function playSound (audioElm:HTMLAudioElement, src:string = null) {
-  audioElm.currentTime = 0
-  if (src) { audioElm.src = src }
-  audioElm.play()
-}
+  const keyLimitReached:boolean = pressedKeys.length >= limit
+  const someKeysAreDifferent:boolean = pressedKeys.length && pressedKeys.some(key => key !== event.code)
+  const keypressSequenceDots = KeypressSequenceElm.querySelectorAll('.c-keypress-sequence__dot')
 
-function resetArray(array: Array<any>) {
-  array.length = 0
-}
+  if (!keyLimitReached) {
+    pressedKeys.map((key, index) => {
+      keypressSequenceDots[index].classList.add('c-keypress-sequence__dot--active')
+    })
+  }
+  
+  playSound(someKeysAreDifferent ? FailedAudioController : DefaultAudioController)
 
-function emit(eventName:string, target:any = document) {
-  return target.dispatchEvent(new Event(eventName))
+  if (someKeysAreDifferent) {
+    toggleAllDots(false)
+    return resetArray(pressedKeys)
+  }
+
+  if (keyLimitReached) emit('unlockSuccess')
 }
 
 // Events

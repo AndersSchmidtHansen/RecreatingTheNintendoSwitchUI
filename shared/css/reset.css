@@ -1,0 +1,19 @@
+html,
+body,
+main {
+  margin: 0;
+  height: 100%;
+  background-attachment: fixed;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  position: relative;
+  box-sizing: border-box;
+}
+
+body {
+  background: #f2f2f2;
+}

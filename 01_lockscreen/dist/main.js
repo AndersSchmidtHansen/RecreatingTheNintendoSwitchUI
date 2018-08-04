@@ -1,4 +1,21 @@
 /* 01: Creating the Nintendo Switch Lock Screen */
+// Utility Methods
+function generateMultipleHTML(html = '', amount = 0) {
+    return Array.from({ length: amount }).fill(html).join('');
+}
+function playSound(audioElm, src = null) {
+    audioElm.currentTime = 0;
+    if (src) {
+        audioElm.src = src;
+    }
+    audioElm.play();
+}
+function resetArray(array) {
+    array.length = 0;
+}
+function emit(eventName, target = document) {
+    return target.dispatchEvent(new Event(eventName));
+}
 // State
 let pressedKeys = [];
 const keysNeedingPressing = 3;
@@ -32,24 +49,6 @@ function generateKeypressSequenceElm(target = document.body, amount = 3) {
     return elm;
 }
 // Methods
-function checkKeypressSequence(event, limit = 3) {
-    pressedKeys.push(event.code);
-    const keyLimitReached = pressedKeys.length >= limit;
-    const someKeysAreDifferent = pressedKeys.length && pressedKeys.some(key => key !== event.code);
-    const keypressSequenceDots = KeypressSequenceElm.querySelectorAll('.c-keypress-sequence__dot');
-    if (!keyLimitReached) {
-        pressedKeys.map((key, index) => {
-            keypressSequenceDots[index].classList.add('c-keypress-sequence__dot--active');
-        });
-    }
-    playSound(someKeysAreDifferent ? FailedAudioController : DefaultAudioController);
-    if (someKeysAreDifferent) {
-        toggleAllDots(false);
-        return resetArray(pressedKeys);
-    }
-    if (keyLimitReached)
-        emit('unlockSuccess');
-}
 function unlockScreen() {
     playSound(UnlockedAudioController);
     toggleAllDots(true);
@@ -70,22 +69,23 @@ function toggleAllDots(on = false) {
         dot.classList[on ? 'add' : 'remove']('c-keypress-sequence__dot--active');
     });
 }
-// Utility Methods
-function generateMultipleHTML(html = '', amount = 0) {
-    return Array.from({ length: amount }).fill(html).join('');
-}
-function playSound(audioElm, src = null) {
-    audioElm.currentTime = 0;
-    if (src) {
-        audioElm.src = src;
+function checkKeypressSequence(event, limit = 3) {
+    pressedKeys.push(event.code);
+    const keyLimitReached = pressedKeys.length >= limit;
+    const someKeysAreDifferent = pressedKeys.length && pressedKeys.some(key => key !== event.code);
+    const keypressSequenceDots = KeypressSequenceElm.querySelectorAll('.c-keypress-sequence__dot');
+    if (!keyLimitReached) {
+        pressedKeys.map((key, index) => {
+            keypressSequenceDots[index].classList.add('c-keypress-sequence__dot--active');
+        });
     }
-    audioElm.play();
-}
-function resetArray(array) {
-    array.length = 0;
-}
-function emit(eventName, target = document) {
-    return target.dispatchEvent(new Event(eventName));
+    playSound(someKeysAreDifferent ? FailedAudioController : DefaultAudioController);
+    if (someKeysAreDifferent) {
+        toggleAllDots(false);
+        return resetArray(pressedKeys);
+    }
+    if (keyLimitReached)
+        emit('unlockSuccess');
 }
 // Events
 document.addEventListener('keydown', event => checkKeypressSequence(event, keysNeedingPressing));
