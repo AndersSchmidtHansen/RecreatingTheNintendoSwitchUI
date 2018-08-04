@@ -6,7 +6,6 @@
       "moduleResolution": "node",
       "sourceMap": true,
       "charset": "utf-8",
-      "allowJs": false,
       "noImplicitReturns": true,
       "rootDir": "./src",
       "outDir": "./dist",
