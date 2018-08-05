@@ -1,21 +1,36 @@
 /* 02: Nintendo Switch Main Menu */
-import { UserAvatars } from './components/UserAvatars'
-import { CurrentTime } from './components/CurrentTime'
-import { BatteryStatus } from './components/BatteryStatus'
-import { WiFiConnectionStatus } from './components/WiFiConnectionStatus'
-import { ApplicationsList } from './components/ApplicationsList'
-import { MainMenuNavigation } from './components/MainMenuNavigation'
-import { ControllerStatus } from './components/ControllerStatus'
-import { CurrentActionHelp } from './components/CurrentActionHelp'
 
-const avatars = new UserAvatars
-const currentTime = new CurrentTime
-const wifiConnectionStatus = new WiFiConnectionStatus
-const batteryStatus = new BatteryStatus
-const applicationsList = new ApplicationsList
-const mainMenuNavigation = new MainMenuNavigation
-const controllerStatus = new ControllerStatus
-const currentActionHelp = new CurrentActionHelp
+import { Component } from "./components/Component";
 
-console.log('Hello from main')
+class ComponentLoader {
+    constructor(
+        private readonly ctx: Object) {        
+    }
+    async getComponent(name: string) {        
+        const component = await import(`./components/${name}`);
+        return <Component>(new component[name]());        
+    }
+}
 
+const loader = new ComponentLoader(window);
+
+function parseComponentName(name) {
+    return name
+        .split('-')
+        .reduce((a, b) => a + (b.charAt(0).toUpperCase() + b.substring(1)));
+}
+
+async function render(source) {
+    const name = source.tagName.toLowerCase();    
+    if (name.startsWith("cmp-")) {
+        const componentName = parseComponentName(name.substring(3));
+        const comp = await loader.getComponent(componentName);        
+        comp.render(source);
+        console.log("component name: " + componentName);
+    }
+    [...source.children].forEach(async x => await render(x));
+}
+
+window.addEventListener("load", () => {
+    render(document.querySelector("main"));
+});

@@ -4,8 +4,8 @@ export class Component {
 
   constructor(theTemplate = `<div>Template</div>`, theRenderTarget = 'body') {
     this.template = theTemplate
-    this.renderTarget = theRenderTarget
-    this.render(this.renderTarget)
+    // this.renderTarget = theRenderTarget
+    // this.render(this.renderTarget)
   }
 
   render(target) {
@@ -14,6 +14,6 @@ export class Component {
 
     // Tip: Using content.cloneNode(true) will completely replace the HTMLElement
     // tag with whatever we pass in, yielding a result similar to React or Vue.
-    document.querySelector(target).appendChild(elm.content.cloneNode(true))
+    target.appendChild(elm.content.cloneNode(true))
   }
 }
