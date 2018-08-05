@@ -97,6 +97,13 @@ I then did this to all the described components, one by one, before moving on to
 ## Micro-layouting with CSS grid
 This part is pretty trivial. Since I can see that some of the components are aligned to the right, which gives this "split" layouting in the header and footer, I needed to do the same. With CSS grid's `justify-self`, this is easy.
 
-Both `.c-app__header` and `.c-app__footer` got a `display: grid` rule on them and a `grid-template-columns: repeat(2, minmax(10px, 1fr)`) to create 2 columns, each filling up 1 fraction each.
+Both `.c-app__header` and `.c-app__footer` got a `display: grid` rule on them and a `grid-template-columns: repeat(2, minmax(10px, 1fr)`) to create 2 columns, each filling up 1 fraction each. Something like this:
+
+```css
+.c-app__header {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(10px, 1fr));
+}
+```
 
 Aligning the elements to the right was handled with a `.align-right` helper class that simply sets `justify-self: right` on whatever element it's attached to.
