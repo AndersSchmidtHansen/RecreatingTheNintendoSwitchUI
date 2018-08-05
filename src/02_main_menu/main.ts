@@ -2,9 +2,10 @@
 
 import { Component } from "./components/Component";
 
-class ComponentLoader {
+class ComponentLoader {    
     constructor(
         private readonly ctx: Object) {        
+        
     }
     async getComponent(name: string) {        
         const target    = await import(`./components/${name}`);                
@@ -52,8 +53,6 @@ async function render(source) {
         const componentName = parseComponentName(name.substring(3));
         const comp = await loader.getComponent(componentName);
         comp.render(source);
-
-        console.log("component name: " + componentName);
     }
     [...source.children].forEach(async x => await render(x));
 }

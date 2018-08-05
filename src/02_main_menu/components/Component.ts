@@ -1,6 +1,8 @@
 
 export class Component {
-  public template:string
+  public template: string;
+  private parentElement: HTMLElement;
+  private cmpElement: HTMLElement;
 
   constructor(theTemplate = `<div>Template</div>`, theRenderTarget = 'body') {
     this.template = theTemplate
@@ -28,7 +30,6 @@ export class Component {
   }
 
   evaluatePropertyPaths(str:string): string {
-    console.log(str);
     if (str.indexOf("{{") < 0 || str.indexOf("}}") < 0) {
       return str;
     }
@@ -74,12 +75,22 @@ export class Component {
     });
   }
 
-  render(target): void {    
+  render(target?: HTMLElement): void {
     const elm = document.createElement('template')
-    elm.innerHTML = this.evaluatePropertyPaths(this.template);
-    
+    elm.innerHTML = this.evaluatePropertyPaths(this.template);    
+
+    if (target && target != null) {
+      this.parentElement = target;
+    }
+
     // Tip: Using content.cloneNode(true) will completely replace the HTMLElement
     // tag with whatever we pass in, yielding a result similar to React or Vue.
-    target.appendChild(elm.content.cloneNode(true))
+    const newChild = elm.content.cloneNode(true) as HTMLElement
+    if (this.cmpElement && this.parentElement) {      
+      this.cmpElement.innerHTML = elm.innerHTML
+    } else if (this.parentElement) {
+      this.parentElement.appendChild(newChild)       
+      this.cmpElement = this.parentElement.children[this.parentElement.children.length - 1] as HTMLElement
+    }
   }
 }

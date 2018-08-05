@@ -2,17 +2,18 @@ import { Component } from "./Component";
 
 export class ApplicationsList extends Component {
   public test: string;
+  private _counter: number = 0;
   constructor() {    
-    super(
-      `<strong>Applications List</strong>`
-      // '.c-app__content'
-    )
+    super()
     this.test = "hello world";
+    setTimeout(() => this.increment(), 1000);
+  }  
+  get counter(): number {
+    return this._counter;
   }
-  myFunc(): string {
-    return "hehehehe";
-  }
-  myFunc2(a:string): string {
-    return "myFunc2 returned: " + a;
+  increment(): void {
+    this._counter++;
+    this.render();
+    setTimeout(() => this.increment(), 1000);
   }
 }
