@@ -1,6 +1,6 @@
 import { Component } from "./Component";
 
-export class WiFiConnectionStatus extends Component {
+export class WifiConnectionStatus extends Component {
   constructor() {
     super(
       `<strong>WiFiConnectionStatus</strong>`

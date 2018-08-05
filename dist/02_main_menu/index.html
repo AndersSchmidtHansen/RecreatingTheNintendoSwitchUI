@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,21 +8,29 @@
   <link rel="stylesheet" href="../shared/css/reset.css">
   <link rel="stylesheet" href="./assets/css/main.css">
 </head>
+
 <body>
   <main class="c-app">
     <header class="c-app__header">
-      <cmp-user-avatars></cmp-user-avatars>
-      <div class="c-app__avatars"></div>
-      <cmp-main-menu-navigation></cmp-main-menu-navigation>
-      <cmp-controller-status></cmp-controller-status>
-      <div class="c-app__device-info align-right"></div>
-      <cmp-wifi-connection-status></cmp-wifi-connection-status>
-      <cmp-battery-status></cmp-battery-status>
-      <cmp-current-time></cmp-current-time>
+      <div class="c-app__avatars">
+        <cmp-user-avatars></cmp-user-avatars>
+      </div>
+      <div class="c-app__device-info align-right">
+        <cmp-battery-status></cmp-battery-status>
+        <cmp-wifi-connection-status></cmp-wifi-connection-status>
+        <cmp-current-time></cmp-current-time>
+      </div>
     </header>
-    <section class="c-app__content"></section>
-    <footer class="c-app__footer"></footer>
+    <section class="c-app__content">
+      <cmp-main-menu-navigation></cmp-main-menu-navigation>
+      <cmp-applications-list></cmp-applications-list>
+    </section>
+    <footer class="c-app__footer">
+      <cmp-controller-status></cmp-controller-status>
+      <cmp-current-action-help></cmp-current-action-help>
+    </footer>
   </main>
   <script src="./main.js"></script>
 </body>
+
 </html>
