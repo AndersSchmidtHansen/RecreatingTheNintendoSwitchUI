@@ -42,13 +42,61 @@ As a sidenote; we would probably want our main content area to use `align-conten
 Again, at a quick glance, the main menu consists of the following components:
 
 * A `UserAvatars` component in the top left corner.
-* `CurrentTime`, `WiFiConnectionStatus` and `DeviceBatteryStatus` components in the top right corner.
+* `CurrentTime`, `WiFiConnectionStatus` and `BatteryStatus` components in the top right corner.
 * An `ApplicationsList` component in the main content area.
 * A `MainMenuNavigation` component, also in the main content area.
   > Note: These can have a small red dot indicating news or updates.
   > Note: The icons animate when selected.
 
-* A `DeviceControllersStatus` component in the bottom left corner.
+* A `ControllerStatus` component in the bottom left corner.
 * A `CurrentActionHelp` component in the bottom right corner (admittedly a little thin for a component, but let's go with it anyway).
 
 > General Note: The avatars, applications and navigation items have an animated blue border that pulsates when in focus.
+
+## B: Creating component shells and rendering them out
+To get a good start on the different components, I began writing their shells and added them to the layout. What I mean by shells is simply to create a bare minimum version of each component file (the `ComponentName.ts` files) that take a HTML template string and a destination of where it should render. Like this:
+
+```typescript
+import { Component } from "./Component";
+
+export class ControllerStatus extends Component {
+  constructor() {
+    super(
+      `<strong>ControllerStatus</strong>`,
+      '.c-app__footer'
+    )
+  }
+}
+```
+
+What you might notice is that I created a top-level `Component` class to make rendering a little bit easier as it gets tiresome to type out all the boilerplate code over and over again. The `Component.ts` looks something like this:
+
+```typescript
+export class Component {
+  public template:string
+  public renderTarget:string
+
+  constructor(theTemplate = `<div>Template</div>`, theRenderTarget = 'body') {
+    this.template = theTemplate
+    this.renderTarget = theRenderTarget
+    this.render(this.renderTarget)
+  }
+
+  render(target) {
+    const elm = document.createElement('template')
+    elm.innerHTML = this.template
+    document.querySelector(target).appendChild(elm.content.cloneNode(true))
+  }
+}
+```
+
+Keep in mind that I'm not very familiar with `TypeScript`, and it's learning experience for me as well. It basically just tages a template string and a query (the `document.querySelector` part) and replaces the `template` HTML element with whatever HTML we give it. I imagine It's a poor man's implementation of how React and Vue do it.
+
+I then did this to all the described components, one by one, before moving on to some micro-layouting.
+
+## Micro-layouting with CSS grid
+This part is pretty trivial. Since I can see that some of the components are aligned to the right, which gives this "split" layouting in the header and footer, I needed to do the same. With CSS grid's `justify-self`, this is easy.
+
+Both `.c-app__header` and `.c-app__footer` got a `display: grid` rule on them and a `grid-template-columns: repeat(2, minmax(10px, 1fr)`) to create 2 columns, each filling up 1 fraction each.
+
+Aligning the elements to the right was handled with a `.align-right` helper class that simply sets `justify-self: right` on whatever element it's attached to.

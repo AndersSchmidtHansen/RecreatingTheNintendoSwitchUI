@@ -8,6 +8,7 @@
   max-height: 70px;
   display: grid;
   padding: 20px;
+  grid-template-columns: repeat(2, minmax(10px, 1fr));
 }
 
 .c-app__content {
@@ -17,7 +18,10 @@
 }
 
 .c-app__footer {
+  display: grid;
+  align-content: center;
+  grid-template-columns: repeat(2, minmax(10px, 1fr));
 }
 
 /* Functional Helpers */
-.align-right { text-align: right; }
+.align-right { justify-self: right; }
