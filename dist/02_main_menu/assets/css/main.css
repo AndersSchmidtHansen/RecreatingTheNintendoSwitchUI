@@ -1,0 +1,23 @@
+.c-app {
+  display: grid;
+  align-content: space-between;
+  grid-template-rows: 70px 1fr 100px;
+}
+
+.c-app__header {
+  max-height: 70px;
+  display: grid;
+  padding: 20px;
+}
+
+.c-app__content {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+
+.c-app__footer {
+}
+
+/* Functional Helpers */
+.align-right { text-align: right; }
