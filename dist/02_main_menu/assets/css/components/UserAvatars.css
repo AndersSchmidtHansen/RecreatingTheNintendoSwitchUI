@@ -1,0 +1,68 @@
+:root {
+  --borderShadow: 0 3px 5px 0 hsla(0, 0%, 0%, .18);
+  --borderShadowActive: 0 8px 5px 0 hsla(0, 0%, 0%, .18);
+  --activeBorderColor: 0 0 0 5px skyblue;
+}
+
+.c-app__avatars {
+  display: flex;
+}
+
+.c-app__avatars .c-avatar {
+  --size: 64px;
+  width: var(--size);
+  height: var(--size);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.c-app__avatars .c-avatar:not(:first-child) {
+  margin-left: 10px;
+}
+
+.c-app__avatars .c-avatar .c-avatar__image {
+  max-width: 100%;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: var(--borderShadow);
+  transition: box-shadow 148ms ease-in-out;
+}
+
+.c-app__avatars .c-avatar .c-avatar__image:hover {
+  box-shadow:
+  var(--activeBorderColor),
+  var(--borderShadowActive);
+  animation: pulseShadow 500ms ease-in-out alternate infinite;
+}
+
+.c-avatar__name {
+  white-space: nowrap;
+  color: lightskyblue;
+  font-weight: 600;
+  font-size: 22px;
+  position: absolute;
+  transform: translate(-40px, 0);
+  opacity: 0;
+  transition: 
+    opacity 140ms ease-in-out,
+    transform 140ms ease-in-out;
+}
+
+.c-avatar:hover .c-avatar__name,
+.c-avatar__name.c-avatar__name--active {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+@keyframes pulseShadow {
+  from {
+    box-shadow:
+    var(--activeBorderColor),
+    var(--borderShadowActive);    
+  }
+  to {
+    box-shadow:
+    0 0 0 5px lightblue,
+    var(--borderShadowActive);
+  }
+}

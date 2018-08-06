@@ -2,7 +2,7 @@ export class Component {
   public template:string
   public renderTarget:string
 
-  constructor(theTemplate = `<div>Template</div>`, theRenderTarget = 'body') {
+  constructor(public theTemplate = `<div>Template</div>`, theRenderTarget = 'body') {
     this.template = theTemplate
     this.renderTarget = theRenderTarget
     this.render(this.renderTarget)

@@ -8,7 +8,18 @@ import { MainMenuNavigation } from './components/MainMenuNavigation'
 import { ControllerStatus } from './components/ControllerStatus'
 import { CurrentActionHelp } from './components/CurrentActionHelp'
 
-const avatars = new UserAvatars
+const users = [
+  {
+    name: 'Joe',
+    username: 'joe@joe.com'
+  },
+  {
+    name: 'Jane',
+    username: 'jane@jane.com'
+  }
+]
+
+const avatars = new UserAvatars(users)
 const currentTime = new CurrentTime
 const wifiConnectionStatus = new WiFiConnectionStatus
 const batteryStatus = new BatteryStatus
